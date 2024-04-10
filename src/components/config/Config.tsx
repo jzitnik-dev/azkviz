@@ -179,7 +179,7 @@ export default function Config({ setSettings }: Params) {
             <p>
               Při prvním použití si musíte vytvořit konfiguraci. Stiskněte na
               "Vytvořit konfiguraci". Vyberete 25 hlavních otázek a záložní
-              otázky.
+              otázky.&nbsp;
               <strong>
                 Poté vysoce doporučuji si uložit konfiguraci, protože nyní když
                 stránku zavřete, konfigurace se vám smaže.&nbsp;
@@ -212,6 +212,8 @@ export default function Config({ setSettings }: Params) {
               >
                 Zdrojový kód
               </a>
+              <br />
+              <strong>Hrací pole funguje pouze na počítači.</strong>
             </p>
           </div>
           <footer style={{ bottom: 0, position: "fixed" }}>
@@ -374,6 +376,7 @@ export default function Config({ setSettings }: Params) {
                 padding: "30px",
                 margin: "10px",
                 borderRadius: "10px",
+                backgroundColor: "white",
               }}
             >
               <Form.Group>

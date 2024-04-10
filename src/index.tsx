@@ -30,8 +30,7 @@ export default function index() {
         } else {
           setNextBackupQuestion(nextBackupQuestion + 1);
         }
-      }
-      else {
+      } else {
         setNextBackupQuestion(0);
       }
     } else {
@@ -64,13 +63,17 @@ export default function index() {
           nextBackupQuestion={nextBackupQuestion}
         />
       ) : null}
-      <Skupiny
-        questionNumber={questionNumber}
-        tymWinState={tymWinState}
-        setTymWinState={setTymWinState}
-        settings={settings}
-      />
-      <HexagonList openQuestion={open} tymWinState={tymWinState} />
+      {true ? (
+        <>
+          <Skupiny
+            questionNumber={questionNumber}
+            tymWinState={tymWinState}
+            setTymWinState={setTymWinState}
+            settings={settings}
+          />
+          <HexagonList openQuestion={open} tymWinState={tymWinState} />
+        </>
+      ) : null}
     </>
   );
 }

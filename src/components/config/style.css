@@ -10,6 +10,8 @@
   padding: 20px;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  background-image: url("./img/background.png");
+  background-position: center;
 }
 .settings h1 {
   font-size: 60px;
