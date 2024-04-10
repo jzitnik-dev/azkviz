@@ -35,6 +35,7 @@ export default function CreateQuestionModal({
         setTimeout(() => {
           setSelectedQuestionImage(dataURI as string);
           setUploadingImageQuestion(false);
+          event.target.value = "";
         }, 1000);
       };
 
@@ -56,6 +57,7 @@ export default function CreateQuestionModal({
         setTimeout(() => {
           setSelectedAnswerImage(dataURI as string);
           setUploadingAnswerImage(false);
+          event.target.value = "";
         }, 1000);
       };
 

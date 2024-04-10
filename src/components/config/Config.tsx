@@ -37,6 +37,7 @@ export default function Config({ setSettings }: Params) {
         setSecondOtazky(data.backupQuestions);
 
         setTimeout(() => {
+          event.target.value = "";
           setLoadingUpload(false);
           setShowCreateConfig(false);
           setShowMainPage(false);
@@ -180,6 +181,8 @@ export default function Config({ setSettings }: Params) {
           <Button
             className="backButton"
             onClick={() => {
+              setMainOtazky([]);
+              setSecondOtazky([]);
               setShowCreateConfig(false);
               setShowMainPage(true);
             }}
@@ -300,6 +303,8 @@ export default function Config({ setSettings }: Params) {
             className="backButton"
             variant="secondary"
             onClick={() => {
+              setMainOtazky([]);
+              setSecondOtazky([]);
               setShowTymy(false);
               setShowMainPage(true);
             }}
