@@ -63,7 +63,7 @@ export default function index() {
           nextBackupQuestion={nextBackupQuestion}
         />
       ) : null}
-      {true ? (
+      {!showConfig && !showQuestion ? (
         <>
           <Skupiny
             questionNumber={questionNumber}
