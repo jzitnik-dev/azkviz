@@ -174,6 +174,52 @@ export default function Config({ setSettings }: Params) {
               Vytvořit konfiguraci
             </Button>
           </div>
+          <div style={{ textAlign: "left", paddingBottom: "50px" }}>
+            <h2>Vytvoření konfigurace</h2>
+            <p>
+              Při prvním použití si musíte vytvořit konfiguraci. Stiskněte na
+              "Vytvořit konfiguraci". Vyberete 25 hlavních otázek a záložní
+              otázky.
+              <strong>
+                Poté vysoce doporučuji si uložit konfiguraci, protože nyní když
+                stránku zavřete, konfigurace se vám smaže.&nbsp;
+              </strong>
+              Poté klikněte "Pokračovat" a vyberte názvy týmu. (názvy týmu
+              nejsou nikdy uloženy do souboru)
+            </p>
+            <h2>Jak hrát</h2>
+            <p>
+              Vyberte políčku a ukáže se vám otázka. Poté co odpovíte na otázku
+              stiskněte na tlačítko s nápisem "Řešení". Jakmile máte řešení
+              zkontrolované stiskněte "Zpět". Nyní se vrátíte zpět na herní
+              pole. Políčko které jste vybrali zešedne. Nyní můžete vybrat jaká
+              skupina danou otázku uhodlo pomocí tlačítek vlevo nahoře a vpravo
+              nahoře. Pokud žádná skupina otázku neuhodla, pole necháváte šedé.
+            </p>
+            <h2>Náhradní otázky</h2>
+            <p>
+              Pokud kliknete na šedé políčko stránka vám vybere náhodnou záložní
+              otázku z listu záložních otázek. Pokud budete mít málo záložních
+              otázek, otázky se mohou začít opakovat.
+            </p>
+            <h2>Základní informace</h2>
+            <p>
+              Upravitelný AZ-Kvíz jako webová stránka. Webová stránka je napsaná
+              v TypeScriptu.{" "}
+              <a
+                href="https://github.com/JZITNIK-github/azkviz"
+                target="_blank"
+              >
+                Zdrojový kód
+              </a>
+            </p>
+          </div>
+          <footer style={{ bottom: 0, position: "fixed" }}>
+            <p>
+              © Copyright <a href="https://jzitnik.dev">Jakub Žitník</a>. All
+              rights reserved.
+            </p>
+          </footer>
         </>
       ) : null}
       {showCreateConfig ? (
@@ -288,12 +334,15 @@ export default function Config({ setSettings }: Params) {
               })}
             </div>
             <hr />
-            <strong>Před pokračováním doporučuji si konfiguraci uložit!!!</strong>
+            <strong>
+              Před pokračováním doporučuji si konfiguraci uložit!!!
+            </strong>
             <br />
             <Button variant="success" onClick={saveAndContinue}>
               Prokračovat
             </Button>
-            <br /><br />
+            <br />
+            <br />
           </div>
         </>
       ) : null}
