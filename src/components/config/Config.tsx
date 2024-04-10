@@ -174,7 +174,7 @@ export default function Config({ setSettings }: Params) {
               Vytvořit konfiguraci
             </Button>
           </div>
-          <div style={{ textAlign: "left", paddingBottom: "50px" }}>
+          <div style={{ textAlign: "left", paddingBottom: "50px", marginTop: "10px" }}>
             <h2>Vytvoření konfigurace</h2>
             <p>
               Při prvním použití si musíte vytvořit konfiguraci. Stiskněte na
