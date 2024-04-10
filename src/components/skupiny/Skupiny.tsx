@@ -8,7 +8,7 @@ interface Props {
   tymWinState: Array<TymWin>,
   setTymWinState: React.Dispatch<React.SetStateAction<Array<TymWin>>>
   questionNumber?: number,
-  settings: Settings
+  settings?: Settings
 }
 
 export default function Skupiny({
