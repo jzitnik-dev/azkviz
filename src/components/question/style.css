@@ -1,0 +1,49 @@
+.question {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+}
+.question .number {
+  width: 100%;
+  font-size: 80px;
+  margin-top: 20px;
+  position: relative;
+}
+.question .questions {
+  font-size: 50px;
+  margin: 20px;
+}
+.question .reseni {
+  margin-top: 30px;
+}
+.question .reseni .reseniList {
+  font-size: 40px;
+}
+.reseni h1 {
+  width: 100%;
+  font-size: 50px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.question .button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  height: 70px;
+  width: 200px;
+  cursor: pointer;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #bbe1e2;
+  border: 3px solid black;
+  border-radius: 5px;
+}

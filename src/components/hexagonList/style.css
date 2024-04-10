@@ -1,0 +1,87 @@
+.hex {
+  float: left;
+  margin-right: -26px;
+  margin-bottom: -50px;
+}
+.hex .left {
+  float: left;
+  width: 0;
+  border-right: 30px solid #bbe1e2;
+  border-top: 52px solid transparent;
+  border-bottom: 52px solid transparent;
+}
+.hex .middle {
+  float: left;
+  width: 60px;
+  height: 104px;
+  background: #bbe1e2;
+}
+.hex .right {
+  float: left;
+  width: 0;
+  border-left: 30px solid #bbe1e2;
+  border-top: 52px solid transparent;
+  border-bottom: 52px solid transparent;
+}
+
+.hex.gray .left {
+  border-right: 30px solid gray;
+}
+.hex.gray .middle {
+  background: gray;
+}
+.hex.gray .right {
+  border-left: 30px solid gray;
+}
+
+.hex.red span {
+  color: white;
+}
+.hex.red .left {
+  border-right: 30px solid red;
+}
+.hex.red .middle {
+  background: red;
+}
+.hex.red .right {
+  border-left: 30px solid red;
+}
+
+.hex.blue span {
+  color: white;
+}
+.hex.blue .left {
+  border-right: 30px solid darkblue;
+}
+.hex.blue .middle {
+  background: darkblue;
+}
+.hex.blue .right {
+  border-left: 30px solid darkblue;
+}
+
+.hex-row {
+  clear: left;
+}
+.hex.even {
+  margin-top: 53px;
+}
+
+.number {
+  cursor: pointer;
+  font-size: 50px;
+  position: absolute;
+  line-height: 1.2;
+}
+
+.hexagonList {
+  position: relative;
+  margin-top: -52px;
+}
+
+.hexagonListContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
