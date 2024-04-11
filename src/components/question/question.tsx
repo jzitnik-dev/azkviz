@@ -21,23 +21,33 @@ export default function Question({
   const question = isBackup
     ? settings?.backupQuestions[nextBackupQuestion]
     : settings?.questions[(questionNumber || 0) - 1];
-  
 
   return (
     <div className="question">
       <h1 className="number">{questionNumber || ""}</h1>
       <div className="questions">
-        {question?.question}<br />
+        {question?.question}
+        <br />
         {question?.questionImageDataURI ? (
-          <img src={question?.questionImageDataURI} />
+          <img
+            src={question?.questionImageDataURI}
+            style={{ maxHeight: "500px" }}
+          />
         ) : null}
       </div>
-      <div className="reseni" style={{ display: showReseni ? "block" : "none" }}>
+      <div
+        className="reseni"
+        style={{ display: showReseni ? "block" : "none" }}
+      >
         <h1>Řešení:</h1>
         <div className="reseniList">
-          {question?.answer}<br />
-          {question?.answerImageDataURI? (
-            <img src={question?.answerImageDataURI} />
+          {question?.answer}
+          <br />
+          {question?.answerImageDataURI ? (
+            <img
+              src={question?.answerImageDataURI}
+              style={{ maxHeight: "500px" }}
+            />
           ) : null}
         </div>
       </div>
