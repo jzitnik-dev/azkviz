@@ -177,7 +177,7 @@ export default function CreateQuestionModal({
                 </Button>
                 <br />
                 <Form.Text>
-                  Pokud chcete, můžete taky vložit obrázek k otázce.
+                  Pokud chcete, můžete taky vložit obrázek k odpovědi.
                 </Form.Text>
               </>
             )}
