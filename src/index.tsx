@@ -19,6 +19,7 @@ export default function index() {
   const [showConfig, setShowConfig] = useState(true);
   const [nextBackupQuestion, setNextBackupQuestion] = useState(-1);
   const [isBackup, setIsBackup] = useState(false);
+  const showedState = useState(false);
 
   function open(questionNumber: number) {
     if (!canOpen(questionNumber, tymWinState)) return;
@@ -70,6 +71,7 @@ export default function index() {
             tymWinState={tymWinState}
             setTymWinState={setTymWinState}
             settings={settings}
+            showedState={showedState}
           />
           <HexagonList openQuestion={open} tymWinState={tymWinState} />
         </>

@@ -1,4 +1,4 @@
-import Settings, { Question } from "../../types/Settings";
+import Settings, { Question, Target, JSONSettings } from "../../types/Settings";
 import CreateQuestionModal from "./CreateQuestionModal";
 import "./style.css";
 import { useState, useRef } from "react";
@@ -21,6 +21,17 @@ export default function Config({ setSettings }: Params) {
   const [savetoFileLoading, setSavetoFileLoading] = useState(false);
   const [loadingUpload, setLoadingUpload] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [target, setTarget] = useState(Target.None);
+
+  function changeTarget(event: React.ChangeEvent<HTMLSelectElement>) {
+    if (event.target.value == "none") {
+      setTarget(Target.None);
+    } else if (event.target.value == "3") {
+      setTarget(Target.Connect3);
+    } else if (event.target.value == "4") {
+      setTarget(Target.Connect4);
+    }
+  }
   function importConfig() {
     fileInputRef.current?.click();
   }
@@ -31,10 +42,18 @@ export default function Config({ setSettings }: Params) {
       const reader = new FileReader();
 
       reader.onload = () => {
-        const data = JSON.parse(reader.result as string);
+        const data = JSON.parse(reader.result as string) as JSONSettings;
 
         setMainOtazky(data.questions);
         setSecondOtazky(data.backupQuestions);
+        if (data.target == 0) {
+          setTarget(Target.Connect3);
+        } else if (data.target == 1) {
+          setTarget(Target.Connect4);
+        } else if (data.target == 2) {
+          setTarget(Target.None);
+        }
+        
 
         setTimeout(() => {
           event.target.value = "";
@@ -56,6 +75,7 @@ export default function Config({ setSettings }: Params) {
         Red: skupinajednaName,
         Blue: skupinadvaName,
       },
+      target: target
     });
   }
   function saveAndContinue() {
@@ -87,6 +107,7 @@ export default function Config({ setSettings }: Params) {
     const settings = {
       questions: mainOtazky,
       backupQuestions: secondOtazky,
+      target: target
     };
     var element = document.createElement("a");
     element.setAttribute(
@@ -174,7 +195,13 @@ export default function Config({ setSettings }: Params) {
               Vytvořit konfiguraci
             </Button>
           </div>
-          <div style={{ textAlign: "left", paddingBottom: "50px", marginTop: "10px" }}>
+          <div
+            style={{
+              textAlign: "left",
+              paddingBottom: "50px",
+              marginTop: "10px",
+            }}
+          >
             <h2>Vytvoření konfigurace</h2>
             <p>
               Při prvním použití si musíte vytvořit konfiguraci. Stiskněte na
@@ -277,7 +304,7 @@ export default function Config({ setSettings }: Params) {
             <div className="otazkyList">
               {mainOtazky.map((el) => {
                 return (
-                  <div className="otazka">
+                  <div className="otazka" key={el.id}>
                     <div>
                       <h4>Otázka:</h4>
                       <p>{el.question}</p>
@@ -334,6 +361,17 @@ export default function Config({ setSettings }: Params) {
                   </div>
                 );
               })}
+            </div>
+            <hr />
+            <div>
+              <h2>Cíl hry</h2>
+              <div className="buttonsList">
+                <Form.Select onChange={changeTarget} style={{width: "fit-content"}}>
+                  <option value="none">Žádný</option>
+                  <option value="3">Propojit 3 strany</option>
+                  <option value="4">Propojit 4 strany</option>
+                </Form.Select>
+              </div>
             </div>
             <hr />
             <strong>

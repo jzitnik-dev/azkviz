@@ -3,6 +3,12 @@ export interface Tymy {
   Red: string
 }
 
+export enum Target {
+  Connect3,
+  Connect4,
+  None
+}
+
 export interface Question {
   id: number,
   question: string,
@@ -14,5 +20,12 @@ export interface Question {
 export default interface Settings {
   nazvyTymu: Tymy,
   questions: Array<Question>,
-  backupQuestions: Array<Question>
+  backupQuestions: Array<Question>,
+  target?: Target
+}
+
+export interface JSONSettings {
+  questions: Array<Question>,
+  backupQuestions: Array<Question>,
+  target?: Target,
 }
