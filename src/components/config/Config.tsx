@@ -116,7 +116,7 @@ export default function Config({ setSettings }: Params) {
       backupQuestions: secondOtazky,
       target: target,
     };
-    var element = document.createElement("a");
+    const element = document.createElement("a");
     element.setAttribute(
       "href",
       "data:text/plain;charset=utf-8," +

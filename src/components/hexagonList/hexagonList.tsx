@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function hexagonList({ openQuestion, tymWinState }: Props) {
-  const converted: { [key: number]: String} = {};
+  const converted: { [key: number]: string} = {};
   tymWinState.forEach((el) => {
     if (el.tym == Tym.Red) {
       converted[el.otazkaNumber] = "red";

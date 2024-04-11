@@ -11,7 +11,7 @@ import Settings from "./types/Settings";
 import Config from "./components/config/Config";
 import isNone from "./utils/isNone";
 
-export default function index() {
+export default function Index() {
   const [tymWinState, setTymWinState] = useState<Array<TymWin>>([]);
   const [showQuestion, setShowQuestion] = useState(false);
   const [questionNumber, setQuestionNumber] = useState<number>();

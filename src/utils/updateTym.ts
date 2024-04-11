@@ -9,7 +9,7 @@ export default function updateTym(
   if (!questionNumber) return tymWinList;
 
   const tymWinCopy = [...tymWinList];
-  for (var i = 0; i < tymWinCopy.length; i++) {
+  for (let i = 0; i < tymWinCopy.length; i++) {
     if (tymWinCopy[i].otazkaNumber == questionNumber) {
       tymWinCopy[i].tym = tym;
       return tymWinCopy;

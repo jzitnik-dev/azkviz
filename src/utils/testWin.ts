@@ -80,7 +80,7 @@ function testWinPath(path: Set<number>, target: Target) {
   };
 
   function hasCommonElement(set1: Set<number>, set2: Set<number>) {
-    for (let item of set1) {
+    for (const item of set1) {
       if (set2.has(item)) {
         return true;
       }

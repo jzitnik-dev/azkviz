@@ -12,7 +12,7 @@ interface Props {
   setTymWinState: React.Dispatch<React.SetStateAction<Array<TymWin>>>;
   questionNumber?: number;
   settings?: Settings;
-  showedState: any
+  showedState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export default function Skupiny({
@@ -73,7 +73,7 @@ export default function Skupiny({
             OK
           </Button>
         </Modal.Footer>
-      </Modal>{" "}
+      </Modal>
       <div className="skupina1" onClick={() => setTym(Tym.Red)}>
         {settings?.nazvyTymu?.Red}
       </div>
