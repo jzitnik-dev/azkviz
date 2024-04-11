@@ -3,6 +3,14 @@ import CreateQuestionModal from "./CreateQuestionModal";
 import "./style.css";
 import { useState, useRef } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faPlus,
+  faSave,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface Params {
   setSettings: (settings: Settings) => void;
@@ -53,7 +61,6 @@ export default function Config({ setSettings }: Params) {
         } else if (data.target == 2) {
           setTarget(Target.None);
         }
-        
 
         setTimeout(() => {
           event.target.value = "";
@@ -75,7 +82,7 @@ export default function Config({ setSettings }: Params) {
         Red: skupinajednaName,
         Blue: skupinadvaName,
       },
-      target: target
+      target: target,
     });
   }
   function saveAndContinue() {
@@ -107,7 +114,7 @@ export default function Config({ setSettings }: Params) {
     const settings = {
       questions: mainOtazky,
       backupQuestions: secondOtazky,
-      target: target
+      target: target,
     };
     var element = document.createElement("a");
     element.setAttribute(
@@ -183,7 +190,10 @@ export default function Config({ setSettings }: Params) {
                   Nahrávání...
                 </>
               ) : (
-                <>Importovat konfiguraci</>
+                <>
+                  <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                  &nbsp;&nbsp;Importovat konfiguraci
+                </>
               )}
             </Button>
             <Button
@@ -192,7 +202,10 @@ export default function Config({ setSettings }: Params) {
                 setShowCreateConfig(true);
               }}
             >
-              Vytvořit konfiguraci
+              <>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                &nbsp;&nbsp;Vytvořit konfiguraci
+              </>
             </Button>
           </div>
           <div
@@ -263,7 +276,10 @@ export default function Config({ setSettings }: Params) {
             }}
             variant="secondary"
           >
-            Zpět
+            <>
+              <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+              &nbsp;&nbsp;Zpět
+            </>
           </Button>
           <Button
             className="rightButton"
@@ -283,7 +299,10 @@ export default function Config({ setSettings }: Params) {
                 Ukládání...
               </>
             ) : (
-              <>Uložit konfiguraci do souboru </>
+              <>
+                <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>
+                &nbsp;&nbsp;Uložit konfiguraci do souboru{" "}
+              </>
             )}
           </Button>
           <h1>Vytvoření konfigurace</h1>
@@ -298,7 +317,8 @@ export default function Config({ setSettings }: Params) {
                 onClick={createMainOtazka}
                 disabled={mainOtazky.length >= 25}
               >
-                Přidat otázku
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                &nbsp;&nbsp;Přidat otázku
               </Button>
             </div>
             <div className="otazkyList">
@@ -335,7 +355,10 @@ export default function Config({ setSettings }: Params) {
               minimálně 5 náhradních otázek.
             </p>
             <div className="buttonsList">
-              <Button onClick={createSecondOtazka}>Přidat otázku</Button>
+              <Button onClick={createSecondOtazka}>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+                &nbsp;&nbsp;Přidat otázku
+              </Button>
             </div>
             <div className="otazkyList">
               {secondOtazky.map((el) => {
@@ -366,7 +389,10 @@ export default function Config({ setSettings }: Params) {
             <div>
               <h2>Cíl hry</h2>
               <div className="buttonsList">
-                <Form.Select onChange={changeTarget} style={{width: "fit-content"}}>
+                <Form.Select
+                  onChange={changeTarget}
+                  style={{ width: "fit-content" }}
+                >
                   <option value="none">Žádný</option>
                   <option value="3">Propojit 3 strany</option>
                   <option value="4">Propojit 4 strany</option>
@@ -379,7 +405,8 @@ export default function Config({ setSettings }: Params) {
             </strong>
             <br />
             <Button variant="success" onClick={saveAndContinue}>
-              Prokračovat
+              Prokračovat&nbsp;&nbsp;
+              <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
             </Button>
             <br />
             <br />
@@ -398,7 +425,10 @@ export default function Config({ setSettings }: Params) {
               setShowMainPage(true);
             }}
           >
-            Zpět
+            <>
+              <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+              &nbsp;&nbsp;Zpět
+            </>
           </Button>
           <h1>Týmy</h1>
           <div

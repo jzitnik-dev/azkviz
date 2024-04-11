@@ -1,6 +1,8 @@
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { Question } from "../../types/Settings";
 import { useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   showModal: boolean;
@@ -126,7 +128,10 @@ export default function CreateQuestionModal({
                         Nahrávání...
                       </>
                     ) : (
-                      <>Vložit obrázek</>
+                      <>
+                        <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                        &nbsp;&nbsp;Vložit obrázek
+                      </>
                     )}
                   </>
                 </Button>
@@ -171,7 +176,10 @@ export default function CreateQuestionModal({
                         Nahrávání...
                       </>
                     ) : (
-                      <>Vložit obrázek</>
+                      <>
+                        <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                        &nbsp;&nbsp;Vložit obrázek
+                      </>
                     )}
                   </>
                 </Button>
