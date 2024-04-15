@@ -2,7 +2,7 @@ import Settings, { Question, Target, JSONSettings } from "../../types/Settings";
 import CreateQuestionModal from "./CreateQuestionModal";
 import "./style.css";
 import { useState, useRef } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
+import { Button, Form, Spinner, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -30,6 +30,7 @@ export default function Config({ setSettings }: Params) {
   const [loadingUpload, setLoadingUpload] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [target, setTarget] = useState(Target.None);
+  const [useOriginal, setUseOriginal] = useState(true);
 
   function changeTarget(event: React.ChangeEvent<HTMLSelectElement>) {
     if (event.target.value == "none") {
@@ -61,6 +62,7 @@ export default function Config({ setSettings }: Params) {
         } else if (data.target == 2) {
           setTarget(Target.None);
         }
+        setUseOriginal(data.questions.length === 28);
 
         setTimeout(() => {
           event.target.value = "";
@@ -83,11 +85,12 @@ export default function Config({ setSettings }: Params) {
         Blue: skupinadvaName,
       },
       target: target,
+      useOriginalType: useOriginal,
     });
   }
   function saveAndContinue() {
-    if (mainOtazky.length != 25) {
-      alert("Musíte mít 25 hlavních otázek!");
+    if (mainOtazky.length != (useOriginal ? 28 : 25)) {
+      alert(`Musíte mít ${useOriginal ? "28" : "25"} hlavních otázek!`);
       return;
     }
     if (secondOtazky.length < 1) {
@@ -100,8 +103,8 @@ export default function Config({ setSettings }: Params) {
   }
   function saveToFile() {
     setSavetoFileLoading(true);
-    if (mainOtazky.length != 25) {
-      alert("Musíte mít 25 hlavních otázek!");
+    if (mainOtazky.length != (useOriginal ? 28 : 25)) {
+      alert(`Musíte mít ${useOriginal ? "28" : "25"} hlavních otázek!`);
       setSavetoFileLoading(false);
       return;
     }
@@ -218,8 +221,11 @@ export default function Config({ setSettings }: Params) {
             <h2>Vytvoření konfigurace</h2>
             <p>
               Při prvním použití si musíte vytvořit konfiguraci. Stiskněte na
-              "Vytvořit konfiguraci". Vyberete 25 hlavních otázek a záložní
-              otázky.&nbsp;
+              "Vytvořit konfiguraci". Vyberete typ hry. Máte na výber originální
+              nebo vlastní. Při originálním vyberete 28 hlavních otázek, při
+              vlastním 25 hlavních otázek a taky záložní otázky. Následně
+              si veberete cíl hry. Systém využívá cíl hry pro zjištění stavu a
+              upozornění při výhře jednoho z týmů.&nbsp;
               <strong>
                 Poté vysoce doporučuji si uložit konfiguraci, protože nyní když
                 stránku zavřete, konfigurace se vám smaže.&nbsp;
@@ -306,16 +312,80 @@ export default function Config({ setSettings }: Params) {
             )}
           </Button>
           <h1>Vytvoření konfigurace</h1>
-
-          <p>Zde si vložíte otázky a odpovědi.</p>
+          <p>Zde si vložíte otázky a odpovědi a nastavíte hru.</p>
           <hr />
           <div>
-            <h2>25 hlavních otázek</h2>
-            <small>{mainOtazky.length}/25</small>
+            <h2>Typ hry</h2>
+
+            <Row className={"justify-content-center"}>
+              <Col md={"auto"} className={"text-center"}>
+                <div
+                  className={
+                    "d-flex justify-content-center align-items-center rounded border border-3 border-primary mx-auto " +
+                    (useOriginal ? "bg-primary" : "bg-light opacity-60")
+                  }
+                  style={{
+                    transition: "all 0.2s",
+                    width: 300,
+                    height: 300,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    setUseOriginal(true);
+                  }}
+                >
+                  <img
+                    src={"img/original.png"}
+                    alt={"Classická verze"}
+                    height={275}
+                    width={275}
+                    style={{
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+                <p className={"mt-2 fw-semibold "}>Originální (doporučuji)</p>
+              </Col>
+              <Col md={"auto"} className={"text-center"}>
+                <div
+                  className={
+                    "d-flex justify-content-center align-items-center rounded border border-3 border-primary mx-auto " +
+                    (!useOriginal ? "bg-primary" : "bg-light opacity-60")
+                  }
+                  style={{
+                    transition: "all 0.2s",
+                    width: 300,
+                    height: 300,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    setUseOriginal(false);
+                  }}
+                >
+                  <img
+                    src={"/img/custom.png"}
+                    alt={"Classická verze"}
+                    height={275}
+                    width={275}
+                    style={{
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
+                <p className={"mt-2 fw-semibold "}>Vlastní</p>
+              </Col>
+            </Row>
+          </div>
+          <hr />
+          <div>
+            <h2>{useOriginal ? 28 : 25} hlavních otázek</h2>
+            <small>
+              {mainOtazky.length}/{useOriginal ? 28 : 25}
+            </small>
             <div className="buttonsList">
               <Button
                 onClick={createMainOtazka}
-                disabled={mainOtazky.length >= 25}
+                disabled={mainOtazky.length >= (useOriginal ? 28 : 25)}
               >
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 &nbsp;&nbsp;Přidat otázku
@@ -395,7 +465,9 @@ export default function Config({ setSettings }: Params) {
                 >
                   <option value="none">Žádný</option>
                   <option value="3">Propojit 3 strany</option>
-                  <option value="4">Propojit 4 strany</option>
+                  {!useOriginal ? (
+                    <option value="4">Propojit 4 strany</option>
+                  ) : null}
                 </Form.Select>
               </div>
             </div>

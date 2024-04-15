@@ -10,6 +10,7 @@ import canOpen from "./utils/canOpen";
 import Settings from "./types/Settings";
 import Config from "./components/config/Config";
 import isNone from "./utils/isNone";
+import OriginalHexagonList from "./components/hexagonList/hexagonListOriginal";
 
 export default function Index() {
   const [tymWinState, setTymWinState] = useState<Array<TymWin>>([]);
@@ -73,7 +74,11 @@ export default function Index() {
             settings={settings}
             showedState={showedState}
           />
-          <HexagonList openQuestion={open} tymWinState={tymWinState} />
+          {settings?.useOriginalType ? (
+            <OriginalHexagonList openQuestion={open} tymWinState={tymWinState} />
+          ) : (
+            <HexagonList openQuestion={open} tymWinState={tymWinState} />
+          )}
         </>
       ) : null}
     </>

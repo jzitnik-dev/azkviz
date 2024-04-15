@@ -21,11 +21,13 @@ export default interface Settings {
   nazvyTymu: Tymy,
   questions: Array<Question>,
   backupQuestions: Array<Question>,
-  target?: Target
+  target?: Target,
+  useOriginalType: boolean,
 }
 
 export interface JSONSettings {
   questions: Array<Question>,
   backupQuestions: Array<Question>,
   target?: Target,
+  useOriginalType?: boolean
 }

@@ -1,10 +1,47 @@
 import { Target } from "../types/Settings";
 import Tym from "../types/Tym";
 import TymWin from "../types/TymWin";
+import Settings from "../types/Settings";
 
 type GraphData = {
   [node: number]: (number | undefined)[];
 };
+function getAdjacentOriginal(
+  questionNumber: number,
+): Array<number | undefined> {
+  const data: GraphData = {
+    1: [undefined, undefined, undefined, 3, 2, undefined],
+    3: [1, undefined, undefined, 6, 5, 2],
+    6: [3, undefined, undefined, 10, 9, 5],
+    10: [6, undefined, undefined, 15, 14, 9],
+    15: [10, undefined, undefined, 21, 20, 14],
+    21: [15, undefined, undefined, 28, 27, 20],
+    28: [21, undefined, undefined, undefined, undefined, 27],
+    27: [20, 21, 28, undefined, undefined, 26],
+    26: [19, 20, 27, undefined, undefined, 25],
+    25: [18, 19, 26, undefined, undefined, 24],
+    24: [17, 18, 25, undefined, undefined, 23],
+    23: [16, 17, 24, undefined, undefined, 22],
+    22: [undefined, 16, 23, undefined, undefined, undefined],
+    16: [undefined, 11, 17, 23, 22, undefined],
+    11: [undefined, 7, 12, 17, 16, undefined],
+    7: [undefined, 4, 8, 12, 11, undefined],
+    4: [undefined, 2, 5, 8, 7, undefined],
+    2: [undefined, 1, 3, 5, 4, undefined],
+    5: [2, 3, 6, 9, 8, 4],
+    9: [5, 6, 10, 14, 13, 8],
+    8: [5, 9, 13, 12, 7, 4],
+    12: [7, 8, 13, 18, 17, 11],
+    13: [8, 9, 14, 19, 18, 12],
+    14: [9, 10, 15, 20, 29, 23],
+    17: [11, 12, 18, 24, 23, 16],
+    18: [12, 13, 19, 25, 24, 17],
+    19: [13, 14, 20, 26, 25, 18],
+    20: [14, 15, 21, 27, 26, 19],
+  };
+
+  return data[questionNumber];
+}
 function getAdjacent(questionNumber: number): Array<number | undefined> {
   const data: GraphData = {
     1: [undefined, undefined, 2, 7, 6, undefined],
@@ -51,9 +88,12 @@ function getPath(
   winTymState: TymWin[],
   questionNumber: number,
   tym: Tym,
+  settings: Settings,
   previousPath?: Set<number>,
 ): Set<number> {
-  const adjacent = getAdjacent(questionNumber);
+  const adjacent = settings.useOriginalType
+    ? getAdjacentOriginal(questionNumber)
+    : getAdjacent(questionNumber);
   const converted: { [key: number]: Tym } = {};
   winTymState.forEach((el) => {
     converted[el.otazkaNumber] = el.tym;
@@ -66,12 +106,46 @@ function getPath(
 
   for (const number of finalAd) {
     path.add(number || 0);
-    path = new Set([...path, ...getPath(winTymState, number || 0, tym, path)]);
+    path = new Set([
+      ...path,
+      ...getPath(winTymState, number || 0, tym, settings, path),
+    ]);
   }
 
   return path;
 }
-function testWinPath(path: Set<number>, target: Target) {
+function testWinPath(path: Set<number>, target: Target, settings: Settings) {
+  if (settings.useOriginalType) {
+    const data = {
+      left: new Set([1, 2, 4, 7, 11, 16, 22]),
+      right: new Set([1, 3, 6, 10, 15, 21, 28]),
+      bottom: new Set([22, 23, 24, 25, 26, 27, 28]),
+    };
+
+    function hasCommonElement(set1: Set<number>, set2: Set<number>) {
+      for (const item of set1) {
+        if (set2.has(item)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    const leftState = hasCommonElement(data.left, path);
+    const rightState = hasCommonElement(data.right, path);
+    const bottomState = hasCommonElement(data.bottom, path);
+
+    const sideCount = [
+      leftState,
+      rightState,
+      bottomState,
+    ].filter(Boolean).length;
+
+    if (sideCount >= 3) {
+      return true;
+    }
+    return false;
+  }
   const data = {
     leftTop: new Set([1, 6, 11, 16, 21]),
     rightTop: new Set([1, 2, 3, 4, 5]),
@@ -100,17 +174,16 @@ function testWinPath(path: Set<number>, target: Target) {
     leftBottomState,
   ].filter(Boolean).length;
 
-  if (target == Target.Connect3 && sideCount >= 3)  {
-    return true
-  }
-  else if (target == Target.Connect4 && sideCount >= 4) {
-    return true
+  if (target == Target.Connect3 && sideCount >= 3) {
+    return true;
+  } else if (target == Target.Connect4 && sideCount >= 4) {
+    return true;
   }
 
   return false;
 }
 
-function testWinTym(winTymState: TymWin[], tym: Tym, target: Target): boolean{
+function testWinTym(winTymState: TymWin[], tym: Tym, target: Target, settings: Settings): boolean {
   const converted: Array<number> = [];
   let discovered: Set<number> = new Set();
   winTymState.forEach((el) => {
@@ -123,22 +196,25 @@ function testWinTym(winTymState: TymWin[], tym: Tym, target: Target): boolean{
     if (discovered.has(el)) {
       continue;
     }
-    const path = getPath(winTymState, el, tym);
+    const path = getPath(winTymState, el, tym, settings);
     discovered = new Set([...discovered, ...path]);
 
-    if (testWinPath(path, target)) {
-      return true
+    if (testWinPath(path, target, settings)) {
+      return true;
     }
   }
 
-  return false
+  return false;
 }
 
-export default function testWin(winTymState: TymWin[], target: Target): Tym | undefined {
-  if (testWinTym(winTymState, Tym.Red, target)) {
-    return Tym.Red
-  } else if (testWinTym(winTymState, Tym.Blue, target)) {
-    return Tym.Blue
+export default function testWin(
+  winTymState: TymWin[],
+  target: Target,
+  settings: Settings
+): Tym | undefined {
+  if (testWinTym(winTymState, Tym.Red, target, settings)) {
+    return Tym.Red;
+  } else if (testWinTym(winTymState, Tym.Blue, target, settings)) {
+    return Tym.Blue;
   }
-
 }

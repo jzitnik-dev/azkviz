@@ -32,7 +32,7 @@ export default function Skupiny({
       settings?.target == Target.Connect3 ||
       settings?.target == Target.Connect4
     ) {
-      const win = testWin(tymWinState, settings?.target);
+      const win = testWin(tymWinState, settings?.target, settings);
 
       if (win === Tym.Red || win === Tym.Blue) {
         setTymWin(win);

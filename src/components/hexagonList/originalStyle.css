@@ -1,0 +1,23 @@
+.originalSvg {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.originalSvg text {
+  user-select: none;
+}
+
+.original-blue {
+  fill: darkblue!important;
+}
+.original-red {
+  fill: red!important;
+}
+.original-gray {
+  fill: gray!important;
+}
+
+text {
+  cursor: pointer;
+}
