@@ -1,7 +1,6 @@
 .originalSvg {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  max-height: 85vh;
+  max-width: 90vw;
 }
 
 .originalSvg text {
@@ -9,13 +8,13 @@
 }
 
 .original-blue {
-  fill: darkblue!important;
+  fill: darkblue !important;
 }
 .original-red {
-  fill: red!important;
+  fill: red !important;
 }
 .original-gray {
-  fill: gray!important;
+  fill: gray !important;
 }
 
 text {
