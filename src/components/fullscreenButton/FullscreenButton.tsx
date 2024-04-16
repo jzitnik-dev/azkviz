@@ -35,6 +35,7 @@ export default function FullscreenButton() {
       onClick={toggleFullscreen}
     >
       <FontAwesomeIcon icon={!isFullscreen ? faExpand : faCompress} />
+      <span style={{fontSize: 0}}>FullScreen</span>
     </Button>
   );
 }
