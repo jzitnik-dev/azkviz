@@ -225,7 +225,7 @@ export default function Config({ setSettings }: Params) {
               nebo vlastní. Při originálním vyberete 28 hlavních otázek, při
               vlastním 25 hlavních otázek a taky záložní otázky. Následně
               si veberete cíl hry. Systém využívá cíl hry pro zjištění stavu a
-              upozornění při výhře jednoho z týmů.&nbsp;
+              upozorní pozornění při výhře jednoho z týmů.&nbsp;
               <strong>
                 Poté vysoce doporučuji si uložit konfiguraci, protože nyní když
                 stránku zavřete, konfigurace se vám smaže.&nbsp;
@@ -342,6 +342,7 @@ export default function Config({ setSettings }: Params) {
                     style={{
                       objectFit: "contain",
                     }}
+                    draggable="false"
                   />
                 </div>
                 <p className={"mt-2 fw-semibold "}>Originální (doporučuji)</p>
@@ -370,6 +371,7 @@ export default function Config({ setSettings }: Params) {
                     style={{
                       objectFit: "contain",
                     }}
+                    draggable="false"
                   />
                 </div>
                 <p className={"mt-2 fw-semibold "}>Vlastní</p>
@@ -458,6 +460,7 @@ export default function Config({ setSettings }: Params) {
             <hr />
             <div>
               <h2>Cíl hry</h2>
+              <p>Systém využívá cíl hry pro zjištění stavu a upozorní při výhře jednoho z týmů. </p>
               <div className="buttonsList">
                 <Form.Select
                   onChange={changeTarget}

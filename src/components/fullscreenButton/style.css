@@ -1,0 +1,7 @@
+.fullscreenbutton {
+  position: fixed;
+  z-index: 50;
+  right: 5px;
+  bottom: 5px;
+}
+
