@@ -95,11 +95,12 @@ export default function CreateQuestionModal({
             <Form.Label>Otázka</Form.Label>
             <Form.Control
               className="mb-2"
+              as="textarea"
               type="text"
               placeholder="Zde vložte otázku"
-              value={question}
+              value={question.replace(/<br>/g, '\n')}
               onChange={(event) => {
-                setQuestion(event.target.value);
+                setQuestion(event.target.value.replace(/(?:\r\n|\r|\n)/g, '<br>'));
               }}
             />
             {selectedQuestionImage ? (
@@ -146,12 +147,13 @@ export default function CreateQuestionModal({
           <Form.Group className="mb-3">
             <Form.Label>Odpověď</Form.Label>
             <Form.Control
+              as="textarea"
               className="mb-2"
               type="text"
               placeholder="Zde vložte odpověď"
-              value={answer}
+              value={answer.replace(/<br>/g, '\n')}
               onChange={(event) => {
-                setAnswer(event.target.value);
+                setAnswer(event.target.value.replace(/(?:\r\n|\r|\n)/g, '<br>'));
               }}
             />
             {selectedAnswerImage ? (

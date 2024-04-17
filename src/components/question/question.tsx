@@ -26,7 +26,7 @@ export default function Question({
     <div className="question">
       <h1 className="number">{questionNumber || ""}</h1>
       <div className="questions">
-        {question?.question}
+        <span dangerouslySetInnerHTML={{__html: question?.question || ""}}></span>
         <br />
         {question?.questionImageDataURI ? (
           <img
@@ -41,7 +41,7 @@ export default function Question({
       >
         <h1>Řešení:</h1>
         <div className="reseniList">
-          {question?.answer}
+          <span dangerouslySetInnerHTML={{__html: question?.answer || ""}}></span>
           <br />
           {question?.answerImageDataURI ? (
             <img
