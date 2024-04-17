@@ -225,7 +225,7 @@ export default function Config({ setSettings }: Params) {
               nebo vlastní. Při originálním vyberete 28 hlavních otázek, při
               vlastním 25 hlavních otázek a taky záložní otázky. Následně
               si veberete cíl hry. Systém využívá cíl hry pro zjištění stavu a
-              upozorní pozornění při výhře jednoho z týmů.&nbsp;
+              upozorní při výhře jednoho z týmů.&nbsp;
               <strong>
                 Poté vysoce doporučuji si uložit konfiguraci, protože nyní když
                 stránku zavřete, konfigurace se vám smaže.&nbsp;
