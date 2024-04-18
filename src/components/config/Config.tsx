@@ -399,11 +399,11 @@ export default function Config({ setSettings }: Params) {
                   <div className="otazka" key={el.id}>
                     <div>
                       <h4>Otázka:</h4>
-                      <p>{el.question}</p>
+                      <p>{el.question.replace(/<br>/g, ' ')}</p>
                     </div>
                     <div>
                       <h4>Odpověd:</h4>
-                      <p>{el.answer}</p>
+                      <p>{el.answer.replace(/<br>/g, ' ')}</p>
                     </div>
 
                     <div>
@@ -438,11 +438,11 @@ export default function Config({ setSettings }: Params) {
                   <div className="otazka">
                     <div>
                       <h4>Otázka:</h4>
-                      <p>{el.question}</p>
+                      <p>{el.question.replace(/<br>/g, ' ')}</p>
                     </div>
                     <div>
                       <h4>Odpověd:</h4>
-                      <p>{el.answer}</p>
+                      <p>{el.answer.replace(/<br>/g, ' ')}</p>
                     </div>
 
                     <div>
