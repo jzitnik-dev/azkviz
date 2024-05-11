@@ -9,6 +9,7 @@ import {
   faArrowRight,
   faPlus,
   faSave,
+  faTrash,
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -223,8 +224,8 @@ export default function Config({ setSettings }: Params) {
               Při prvním použití si musíte vytvořit konfiguraci. Stiskněte na
               "Vytvořit konfiguraci". Vyberete typ hry. Máte na výber originální
               nebo vlastní. Při originálním vyberete 28 hlavních otázek, při
-              vlastním 25 hlavních otázek a taky záložní otázky. Následně
-              si veberete cíl hry. Systém využívá cíl hry pro zjištění stavu a
+              vlastním 25 hlavních otázek a taky záložní otázky. Následně si
+              veberete cíl hry. Systém využívá cíl hry pro zjištění stavu a
               upozorní při výhře jednoho z týmů.&nbsp;
               <strong>
                 Poté vysoce doporučuji si uložit konfiguraci, protože nyní když
@@ -399,11 +400,11 @@ export default function Config({ setSettings }: Params) {
                   <div className="otazka" key={el.id}>
                     <div>
                       <h4>Otázka:</h4>
-                      <p>{el.question.replace(/<br>/g, ' ')}</p>
+                      <p>{el.question.replace(/<br>/g, " ")}</p>
                     </div>
                     <div>
                       <h4>Odpověd:</h4>
-                      <p>{el.answer.replace(/<br>/g, ' ')}</p>
+                      <p>{el.answer.replace(/<br>/g, " ")}</p>
                     </div>
 
                     <div>
@@ -411,7 +412,8 @@ export default function Config({ setSettings }: Params) {
                         variant="danger"
                         onClick={() => removeMainQuestion(el.id)}
                       >
-                        Odstranit
+                        <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                        &nbsp;&nbsp;Odstranit
                       </Button>
                     </div>
                   </div>
@@ -438,11 +440,11 @@ export default function Config({ setSettings }: Params) {
                   <div className="otazka">
                     <div>
                       <h4>Otázka:</h4>
-                      <p>{el.question.replace(/<br>/g, ' ')}</p>
+                      <p>{el.question.replace(/<br>/g, " ")}</p>
                     </div>
                     <div>
                       <h4>Odpověd:</h4>
-                      <p>{el.answer.replace(/<br>/g, ' ')}</p>
+                      <p>{el.answer.replace(/<br>/g, " ")}</p>
                     </div>
 
                     <div>
@@ -450,7 +452,8 @@ export default function Config({ setSettings }: Params) {
                         variant="danger"
                         onClick={() => removeSecondQuestion(el.id)}
                       >
-                        Odstranit
+                        <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                        &nbsp;&nbsp;Odstranit
                       </Button>
                     </div>
                   </div>
@@ -460,7 +463,10 @@ export default function Config({ setSettings }: Params) {
             <hr />
             <div>
               <h2>Cíl hry</h2>
-              <p>Systém využívá cíl hry pro zjištění stavu a upozorní při výhře jednoho z týmů. </p>
+              <p>
+                Systém využívá cíl hry pro zjištění stavu a upozorní při výhře
+                jednoho z týmů.{" "}
+              </p>
               <div className="buttonsList">
                 <Form.Select
                   onChange={changeTarget}
