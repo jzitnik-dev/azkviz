@@ -216,8 +216,9 @@ export default function Config({ setSettings }: Params) {
             style={{
               textAlign: "left",
               paddingBottom: "50px",
-              marginTop: "10px",
+              marginTop: "20px",
             }}
+            className="container"
           >
             <h2>Vytvoření konfigurace</h2>
             <p>
@@ -263,7 +264,7 @@ export default function Config({ setSettings }: Params) {
               <strong>Hrací pole funguje pouze na počítači.</strong>
             </p>
           </div>
-          <footer style={{ bottom: 0, position: "fixed" }}>
+          <footer style={{ bottom: 0, position: "fixed", marginLeft: "20px" }}>
             <p>
               © Copyright <a href="https://jzitnik.dev">Jakub Žitník</a>. All
               rights reserved.
@@ -272,7 +273,7 @@ export default function Config({ setSettings }: Params) {
         </>
       ) : null}
       {showCreateConfig ? (
-        <>
+        <div style={{ padding: "20px" }}>
           <Button
             className="backButton"
             onClick={() => {
@@ -492,7 +493,7 @@ export default function Config({ setSettings }: Params) {
             <br />
             <br />
           </div>
-        </>
+        </div>
       ) : null}
       {showTymy ? (
         <>
