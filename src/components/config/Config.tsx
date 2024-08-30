@@ -255,7 +255,7 @@ export default function Config({ setSettings }: Params) {
               Upravitelný AZ-Kvíz jako webová stránka. Webová stránka je napsaná
               v TypeScriptu.{" "}
               <a
-                href="https://github.com/JZITNIK-github/azkviz"
+                href="https://github.com/jzitnik-dev/azkviz"
                 target="_blank"
               >
                 Zdrojový kód
