@@ -23,11 +23,13 @@ export default interface Settings {
   backupQuestions: Array<Question>,
   target?: Target,
   useOriginalType: boolean,
+  answerTime?: number,
 }
 
 export interface JSONSettings {
   questions: Array<Question>,
   backupQuestions: Array<Question>,
   target?: Target,
-  useOriginalType?: boolean
+  useOriginalType?: boolean,
+  answerTime?: number,
 }

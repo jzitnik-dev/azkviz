@@ -32,6 +32,7 @@ export default function Config({ setSettings }: Params) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [target, setTarget] = useState(Target.None);
   const [useOriginal, setUseOriginal] = useState(true);
+  const [answerTime, setAnswerTime] = useState<number | undefined>(undefined);
 
   function getTarget() {
     if (target == Target.None) {
@@ -76,6 +77,9 @@ export default function Config({ setSettings }: Params) {
           setTarget(Target.None);
         }
         setUseOriginal(data.questions.length === 28);
+        if (data.answerTime) {
+          setAnswerTime(data.answerTime);
+        }
 
         setTimeout(() => {
           event.target.value = "";
@@ -99,6 +103,7 @@ export default function Config({ setSettings }: Params) {
       },
       target: target,
       useOriginalType: useOriginal,
+      answerTime: answerTime,
     });
   }
   function saveAndContinue() {
@@ -131,6 +136,7 @@ export default function Config({ setSettings }: Params) {
       questions: mainOtazky,
       backupQuestions: secondOtazky,
       target: target,
+      answerTime: answerTime,
     };
     const element = document.createElement("a");
     element.setAttribute(
@@ -492,6 +498,27 @@ export default function Config({ setSettings }: Params) {
                     <option value="4">Propojit 4 strany</option>
                   ) : null}
                 </Form.Select>
+              </div>
+            </div>
+            <hr />
+            <div>
+              <h2>Čas na odpověď</h2>
+              <p>
+                Volitelný časový limit pro odpověď na otázku (v sekundách). 
+                Pokud čas vyprší, druhý tým má neomezený čas na odpověď.
+              </p>
+              <div className="buttonsList">
+                <Form.Control
+                  type="number"
+                  placeholder="Čas v sekundách (prázdné = bez limitu)"
+                  value={answerTime || ""}
+                  onChange={(event) => {
+                    const val = event.target.value;
+                    setAnswerTime(val ? parseInt(val) : undefined);
+                  }}
+                  style={{ width: "fit-content" }}
+                  min={1}
+                />
               </div>
             </div>
             <hr />

@@ -1,6 +1,7 @@
 import Settings from "../../types/Settings";
+import Tym from "../../types/Tym";
 import "./style.css";
-import { useState } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 interface Props {
   close: () => void;
@@ -8,6 +9,9 @@ interface Props {
   settings?: Settings;
   isBackup: boolean;
   nextBackupQuestion: number;
+  answeringTeam: Tym;
+  timeExpired: boolean;
+  setTimeExpired: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function Question({
@@ -16,15 +20,71 @@ export default function Question({
   settings,
   isBackup,
   nextBackupQuestion,
+  answeringTeam,
+  timeExpired,
+  setTimeExpired,
 }: Props) {
   const [showReseni, setShowReseni] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number | undefined>();
   const question = isBackup
     ? settings?.backupQuestions[nextBackupQuestion]
     : settings?.questions[(questionNumber || 0) - 1];
 
+  useEffect(() => {
+    if (settings?.answerTime && !showReseni && !timeExpired) {
+      setTimeLeft(settings.answerTime);
+      const interval = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev === undefined || prev <= 1) {
+            clearInterval(interval);
+            setTimeExpired(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    } else {
+      setTimeLeft(undefined);
+    }
+  }, [settings?.answerTime, showReseni, timeExpired, questionNumber, setTimeExpired]);
+
+  useEffect(() => {
+    if (showReseni) {
+      setTimeLeft(undefined);
+    }
+  }, [showReseni]);
+
+
+  const getOtherTeamName = () => {
+    if (answeringTeam === Tym.Red) {
+      return settings?.nazvyTymu.Blue;
+    } else if (answeringTeam === Tym.Blue) {
+      return settings?.nazvyTymu.Red;
+    }
+    return "";
+  };
+
   return (
     <div className="question">
       <h1 className="number">{questionNumber || ""}</h1>
+      
+      {settings?.answerTime && !showReseni && (
+        <div className="timer-display">
+          {timeLeft !== undefined && (
+            <div className={`timer ${timeLeft <= 5 ? "timer-warning" : ""}`}>
+              {timeLeft}s
+            </div>
+          )}
+        </div>
+      )}
+
+      {settings?.answerTime && timeExpired && !showReseni && (
+        <div className="time-expired-message">
+          Čas vypršel! {getOtherTeamName() ? `${getOtherTeamName()} může odpovídat` : ""}
+        </div>
+      )}
+
       <div className="questions">
         <span dangerouslySetInnerHTML={{__html: question?.question || ""}}></span>
         <br />

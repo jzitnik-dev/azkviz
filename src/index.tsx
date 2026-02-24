@@ -24,6 +24,8 @@ export default function Index() {
   const [isBackup, setIsBackup] = useState(false);
   const showedState = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [answeringTeam, setAnsweringTeam] = useState<Tym>(Tym.None);
+  const [timeExpired, setTimeExpired] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,6 +36,8 @@ export default function Index() {
 
   function open(questionNumber: number) {
     if (!canOpen(questionNumber, tymWinState)) return;
+    setAnsweringTeam(Tym.None);
+    setTimeExpired(false);
     if (isNone(questionNumber, tymWinState)) {
       setIsBackup(true);
       if (settings?.backupQuestions) {
@@ -53,6 +57,8 @@ export default function Index() {
   }
   function close() {
     setShowQuestion(false);
+    setAnsweringTeam(Tym.None);
+    setTimeExpired(false);
     setTymWinState(updateTym(tymWinState, Tym.None, questionNumber));
   }
 
@@ -78,6 +84,9 @@ export default function Index() {
               settings={settings}
               isBackup={isBackup}
               nextBackupQuestion={nextBackupQuestion}
+              answeringTeam={answeringTeam}
+              timeExpired={timeExpired}
+              setTimeExpired={setTimeExpired}
             />
           ) : null}
           {!showConfig && !showQuestion ? (
