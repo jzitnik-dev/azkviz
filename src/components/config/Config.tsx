@@ -33,6 +33,18 @@ export default function Config({ setSettings }: Params) {
   const [target, setTarget] = useState(Target.None);
   const [useOriginal, setUseOriginal] = useState(true);
 
+  function getTarget() {
+    if (target == Target.None) {
+      return "none";
+    } else if (target == Target.Connect3) {
+      return "3";
+    } else if (target == Target.Connect4) {
+      return "4";
+    }
+
+    return "none";
+  }
+
   function changeTarget(event: React.ChangeEvent<HTMLSelectElement>) {
     if (event.target.value == "none") {
       setTarget(Target.None);
@@ -68,9 +80,9 @@ export default function Config({ setSettings }: Params) {
         setTimeout(() => {
           event.target.value = "";
           setLoadingUpload(false);
-          setShowCreateConfig(false);
           setShowMainPage(false);
-          setShowTymy(true);
+          setShowCreateConfig(true);
+          setShowTymy(false);
         }, 1000);
       };
 
@@ -470,6 +482,7 @@ export default function Config({ setSettings }: Params) {
               </p>
               <div className="buttonsList">
                 <Form.Select
+                  value={getTarget()}
                   onChange={changeTarget}
                   style={{ width: "fit-content" }}
                 >
