@@ -26,12 +26,13 @@ export default function Question({
 }: Props) {
   const [showReseni, setShowReseni] = useState(false);
   const [timeLeft, setTimeLeft] = useState<number | undefined>();
+  const [timerStarted, setTimerStarted] = useState(false);
   const question = isBackup
     ? settings?.backupQuestions[nextBackupQuestion]
     : settings?.questions[(questionNumber || 0) - 1];
 
   useEffect(() => {
-    if (settings?.answerTime && !showReseni && !timeExpired) {
+    if (settings?.answerTime && !showReseni && !timeExpired && timerStarted) {
       setTimeLeft(settings.answerTime);
       const interval = setInterval(() => {
         setTimeLeft((prev) => {
@@ -47,7 +48,14 @@ export default function Question({
     } else {
       setTimeLeft(undefined);
     }
-  }, [settings?.answerTime, showReseni, timeExpired, questionNumber, setTimeExpired]);
+  }, [
+    settings?.answerTime,
+    showReseni,
+    timeExpired,
+    questionNumber,
+    setTimeExpired,
+    timerStarted,
+  ]);
 
   useEffect(() => {
     if (showReseni) {
@@ -69,7 +77,7 @@ export default function Question({
     <div className="question">
       <h1 className="number">{questionNumber || ""}</h1>
       
-      {settings?.answerTime && !showReseni && (
+      {settings?.answerTime && !showReseni && timerStarted && (
         <div className="timer-display">
           {timeLeft !== undefined && (
             <div className={`timer ${timeLeft <= 5 ? "timer-warning" : ""}`}>
@@ -79,14 +87,17 @@ export default function Question({
         </div>
       )}
 
-      {settings?.answerTime && timeExpired && !showReseni && (
+      {settings?.answerTime && timeExpired && !showReseni && timerStarted && (
         <div className="time-expired-message">
-          Čas vypršel! {getOtherTeamName() ? `${getOtherTeamName()} může odpovídat` : ""}
+          Čas vypršel!{" "}
+          {getOtherTeamName() ? `${getOtherTeamName()} může odpovídat` : ""}
         </div>
       )}
 
       <div className="questions">
-        <span dangerouslySetInnerHTML={{__html: question?.question || ""}}></span>
+        <span
+          dangerouslySetInnerHTML={{ __html: question?.question || "" }}
+        ></span>
         <br />
         {question?.questionImageDataURI ? (
           <img
@@ -95,13 +106,10 @@ export default function Question({
           />
         ) : null}
       </div>
-      <div
-        className="reseni"
-        style={{ display: showReseni ? "block" : "none" }}
-      >
+      <div className="reseni" style={{ display: showReseni ? "block" : "none" }}>
         <h1>Řešení:</h1>
         <div className="reseniList">
-          <span dangerouslySetInnerHTML={{__html: question?.answer || ""}}></span>
+          <span dangerouslySetInnerHTML={{ __html: question?.answer || "" }}></span>
           <br />
           {question?.answerImageDataURI ? (
             <img
@@ -111,13 +119,23 @@ export default function Question({
           ) : null}
         </div>
       </div>
-      <div
-        className="button resenibutton"
-        onClick={() => setShowReseni(true)}
-        style={{ display: showReseni ? "none" : "block" }}
-      >
-        Řešení
-      </div>
+
+      {settings?.answerTime && !timerStarted && !showReseni ? (
+        <div
+          className="button timerbutton"
+          onClick={() => setTimerStarted(true)}
+        >
+          Spustit odpočítávání
+        </div>
+      ) : (
+        <div
+          className="button resenibutton"
+          onClick={() => setShowReseni(true)}
+          style={{ display: showReseni ? "none" : "block" }}
+        >
+          Řešení
+        </div>
+      )}
       <div
         className="button backbutton"
         onClick={close}
