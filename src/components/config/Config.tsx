@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faArrowRight,
+  faEdit,
   faPlus,
   faSave,
   faTrash,
@@ -24,6 +25,9 @@ export default function Config({ setSettings }: Params) {
   const [secondOtazky, setSecondOtazky] = useState<Array<Question>>([]);
   const [creatingOtazka, setCreatingOtazka] = useState(false);
   const [creatingMainOtazka, setCreatingMainOtazka] = useState(false);
+  const [editingOtazka, setEditingOtazka] = useState<Question | undefined>(
+    undefined,
+  );
   const [showTymy, setShowTymy] = useState(false);
   const [skupinajednaName, setSkupinajednaName] = useState("");
   const [skupinadvaName, setSkupinadvaName] = useState("");
@@ -164,25 +168,48 @@ export default function Config({ setSettings }: Params) {
   function removeSecondQuestion(id: number) {
     setSecondOtazky(secondOtazky.filter((e) => e.id != id));
   }
+  function editMainQuestion(otazka: Question) {
+    setEditingOtazka(otazka);
+    setCreatingMainOtazka(true);
+    setCreatingOtazka(true);
+  }
+  function editSecondQuestion(otazka: Question) {
+    setEditingOtazka(otazka);
+    setCreatingMainOtazka(false);
+    setCreatingOtazka(true);
+  }
   function createMainOtazka() {
+    setEditingOtazka(undefined);
     setCreatingOtazka(true);
     setCreatingMainOtazka(true);
   }
   function createSecondOtazka() {
+    setEditingOtazka(undefined);
     setCreatingOtazka(true);
     setCreatingMainOtazka(false);
   }
   function closeOtazka() {
     setCreatingOtazka(false);
+    setEditingOtazka(undefined);
   }
   function saveOtazka(otazka: Question) {
     if (creatingMainOtazka) {
       const otazky = [...mainOtazky];
-      otazky.push(otazka);
+      const index = otazky.findIndex((e) => e.id == otazka.id);
+      if (index != -1) {
+        otazky[index] = otazka;
+      } else {
+        otazky.push(otazka);
+      }
       setMainOtazky(otazky);
     } else {
       const otazky = [...secondOtazky];
-      otazky.push(otazka);
+      const index = otazky.findIndex((e) => e.id == otazka.id);
+      if (index != -1) {
+        otazky[index] = otazka;
+      } else {
+        otazky.push(otazka);
+      }
       setSecondOtazky(otazky);
     }
   }
@@ -193,6 +220,7 @@ export default function Config({ setSettings }: Params) {
         showModal={creatingOtazka}
         handleClose={closeOtazka}
         handleSave={saveOtazka}
+        editingQuestion={editingOtazka}
       />
       {showMainPage ? (
         <>
@@ -428,6 +456,14 @@ export default function Config({ setSettings }: Params) {
 
                     <div>
                       <Button
+                        variant="primary"
+                        className="me-2"
+                        onClick={() => editMainQuestion(el)}
+                      >
+                        <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                        &nbsp;&nbsp;Upravit
+                      </Button>
+                      <Button
                         variant="danger"
                         onClick={() => removeMainQuestion(el.id)}
                       >
@@ -467,6 +503,14 @@ export default function Config({ setSettings }: Params) {
                     </div>
 
                     <div>
+                      <Button
+                        variant="primary"
+                        className="me-2"
+                        onClick={() => editSecondQuestion(el)}
+                      >
+                        <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                        &nbsp;&nbsp;Upravit
+                      </Button>
                       <Button
                         variant="danger"
                         onClick={() => removeSecondQuestion(el.id)}

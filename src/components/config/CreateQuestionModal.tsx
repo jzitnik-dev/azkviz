@@ -1,6 +1,6 @@
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { Question } from "../../types/Settings";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,12 +8,14 @@ interface Props {
   showModal: boolean;
   handleClose: () => void;
   handleSave: (otazka: Question) => void;
+  editingQuestion?: Question;
 }
 
 export default function CreateQuestionModal({
   showModal,
   handleClose,
   handleSave,
+  editingQuestion,
 }: Props) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -23,6 +25,20 @@ export default function CreateQuestionModal({
   const [selectedQuestionImage, setSelectedQuestionImage] = useState<string>();
   const answerInputRef = useRef<HTMLInputElement>(null);
   const [selectedAnswerImage, setSelectedAnswerImage] = useState<string>();
+
+  useEffect(() => {
+    if (editingQuestion) {
+      setQuestion(editingQuestion.question);
+      setAnswer(editingQuestion.answer);
+      setSelectedQuestionImage(editingQuestion.questionImageDataURI);
+      setSelectedAnswerImage(editingQuestion.answerImageDataURI);
+    } else {
+      setQuestion("");
+      setAnswer("");
+      setSelectedQuestionImage(undefined);
+      setSelectedAnswerImage(undefined);
+    }
+  }, [editingQuestion, showModal]);
 
   function handleQuestionFileUpload(
     event: React.ChangeEvent<HTMLInputElement>,
@@ -87,7 +103,7 @@ export default function CreateQuestionModal({
         accept="image/*"
       />
       <Modal.Header>
-        <Modal.Title>Vytvořit otázku</Modal.Title>
+        <Modal.Title>{editingQuestion ? "Upravit otázku" : "Vytvořit otázku"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -211,20 +227,16 @@ export default function CreateQuestionModal({
           variant="primary"
           onClick={() => {
             handleSave({
-              id: Math.random() * 10000000,
+              id: editingQuestion ? editingQuestion.id : Math.random() * 10000000,
               question: question,
               answer: answer,
               questionImageDataURI: selectedQuestionImage,
               answerImageDataURI: selectedAnswerImage,
             });
-            setQuestion("");
-            setAnswer("");
-            setSelectedAnswerImage("");
-            setSelectedQuestionImage("");
             handleClose();
           }}
         >
-          Uložit
+          {editingQuestion ? "Uložit změny" : "Uložit"}
         </Button>
       </Modal.Footer>
     </Modal>
