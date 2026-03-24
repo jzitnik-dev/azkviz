@@ -33,6 +33,9 @@ export default function Config({ setSettings }: Params) {
   const [skupinadvaName, setSkupinadvaName] = useState("");
   const [savetoFileLoading, setSavetoFileLoading] = useState(false);
   const [loadingUpload, setLoadingUpload] = useState(false);
+  const [showMainQuestionsList, setShowMainQuestionsList] = useState(false);
+  const [showSecondQuestionsList, setShowSecondQuestionsList] = useState(false);
+  const [isImported, setIsImported] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [target, setTarget] = useState(Target.None);
   const [useOriginal, setUseOriginal] = useState(true);
@@ -73,6 +76,8 @@ export default function Config({ setSettings }: Params) {
 
         setMainOtazky(data.questions);
         setSecondOtazky(data.backupQuestions);
+        setShowMainQuestionsList(false);
+        setShowSecondQuestionsList(false);
         if (data.target == 0) {
           setTarget(Target.Connect3);
         } else if (data.target == 1) {
@@ -91,6 +96,9 @@ export default function Config({ setSettings }: Params) {
           setShowMainPage(false);
           setShowCreateConfig(true);
           setShowTymy(false);
+          setIsImported(true);
+          setShowMainQuestionsList(false);
+          setShowSecondQuestionsList(false);
         }, 1000);
       };
 
@@ -250,6 +258,9 @@ export default function Config({ setSettings }: Params) {
               onClick={() => {
                 setShowMainPage(false);
                 setShowCreateConfig(true);
+                setIsImported(false);
+                setShowMainQuestionsList(true);
+                setShowSecondQuestionsList(true);
               }}
             >
               <>
@@ -432,7 +443,7 @@ export default function Config({ setSettings }: Params) {
             <small>
               {mainOtazky.length}/{useOriginal ? 28 : 25}
             </small>
-            <div className="buttonsList">
+             <div className="buttonsList">
               <Button
                 onClick={createMainOtazka}
                 disabled={mainOtazky.length >= (useOriginal ? 28 : 25)}
@@ -440,41 +451,53 @@ export default function Config({ setSettings }: Params) {
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 &nbsp;&nbsp;Přidat otázku
               </Button>
+              {isImported && (
+                <Button
+                  className="ms-2"
+                  onClick={() => setShowMainQuestionsList(!showMainQuestionsList)}
+                >
+                  {showMainQuestionsList
+                    ? "Skrýt hlavní otázky"
+                    : "Zobrazit hlavní otázky"}
+                </Button>
+              )}
             </div>
-            <div className="otazkyList">
-              {mainOtazky.map((el) => {
-                return (
-                  <div className="otazka" key={el.id}>
-                    <div>
-                      <h4>Otázka:</h4>
-                      <p>{el.question.replace(/<br>/g, " ")}</p>
-                    </div>
-                    <div>
-                      <h4>Odpověd:</h4>
-                      <p>{el.answer.replace(/<br>/g, " ")}</p>
-                    </div>
+            {(showMainQuestionsList || !isImported) && (
+              <div className="otazkyList">
+                {mainOtazky.map((el, index) => {
+                  return (
+                    <div className="otazka" key={el.id}>
+                      <div>
+                        <h4>Otázka {index + 1}:</h4>
+                        <p>{el.question.replace(/<br>/g, " ")}</p>
+                      </div>
+                      <div>
+                        <h4>Odpověd:</h4>
+                        <p>{el.answer.replace(/<br>/g, " ")}</p>
+                      </div>
 
-                    <div>
-                      <Button
-                        variant="primary"
-                        className="me-2"
-                        onClick={() => editMainQuestion(el)}
-                      >
-                        <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
-                        &nbsp;&nbsp;Upravit
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => removeMainQuestion(el.id)}
-                      >
-                        <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
-                        &nbsp;&nbsp;Odstranit
-                      </Button>
+                      <div>
+                        <Button
+                          variant="primary"
+                          className="me-2"
+                          onClick={() => editMainQuestion(el)}
+                        >
+                          <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                          &nbsp;&nbsp;Upravit
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => removeMainQuestion(el.id)}
+                        >
+                          <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                          &nbsp;&nbsp;Odstranit
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
           <hr />
           <div>
@@ -483,18 +506,64 @@ export default function Config({ setSettings }: Params) {
               Tyto otázky jsou využity při odpovídání šedého políčka. Doporučuji
               minimálně 5 náhradních otázek.
             </p>
-            <div className="buttonsList">
+             <div className="buttonsList">
               <Button onClick={createSecondOtazka}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 &nbsp;&nbsp;Přidat otázku
               </Button>
+              {isImported && (
+                <Button
+                  className="ms-2"
+                  onClick={() => setShowSecondQuestionsList(!showSecondQuestionsList)}
+                >
+                  {showSecondQuestionsList
+                    ? "Skrýt náhradní otázky"
+                    : "Zobrazit náhradní otázky"}
+                </Button>
+              )}
             </div>
+            {(showSecondQuestionsList || !isImported) && (
+              <div className="otazkyList">
+                {secondOtazky.map((el, index) => {
+                  return (
+                    <div className="otazka" key={el.id}>
+                      <div>
+                        <h4>Otázka {index + 1}:</h4>
+                        <p>{el.question.replace(/<br>/g, " ")}</p>
+                      </div>
+                      <div>
+                        <h4>Odpověd:</h4>
+                        <p>{el.answer.replace(/<br>/g, " ")}</p>
+                      </div>
+
+                      <div>
+                        <Button
+                          variant="primary"
+                          className="me-2"
+                          onClick={() => editSecondQuestion(el)}
+                        >
+                          <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                          &nbsp;&nbsp;Upravit
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => removeSecondQuestion(el.id)}
+                        >
+                          <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                          &nbsp;&nbsp;Odstranit
+                        </Button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
             <div className="otazkyList">
-              {secondOtazky.map((el) => {
+              {secondOtazky.map((el, index) => {
                 return (
-                  <div className="otazka">
+                  <div className="otazka" key={el.id}>
                     <div>
-                      <h4>Otázka:</h4>
+                      <h4>Otázka {index + 1}:</h4>
                       <p>{el.question.replace(/<br>/g, " ")}</p>
                     </div>
                     <div>
