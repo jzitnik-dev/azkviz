@@ -558,40 +558,6 @@ export default function Config({ setSettings }: Params) {
                 })}
               </div>
             )}
-            <div className="otazkyList">
-              {secondOtazky.map((el, index) => {
-                return (
-                  <div className="otazka" key={el.id}>
-                    <div>
-                      <h4>Otázka {index + 1}:</h4>
-                      <p>{el.question.replace(/<br>/g, " ")}</p>
-                    </div>
-                    <div>
-                      <h4>Odpověd:</h4>
-                      <p>{el.answer.replace(/<br>/g, " ")}</p>
-                    </div>
-
-                    <div>
-                      <Button
-                        variant="primary"
-                        className="me-2"
-                        onClick={() => editSecondQuestion(el)}
-                      >
-                        <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
-                        &nbsp;&nbsp;Upravit
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => removeSecondQuestion(el.id)}
-                      >
-                        <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
-                        &nbsp;&nbsp;Odstranit
-                      </Button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
             <hr />
             <div>
               <h2>Cíl hry</h2>
