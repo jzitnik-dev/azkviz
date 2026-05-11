@@ -154,7 +154,7 @@ export default function Config({ setSettings }: Params) {
     element.setAttribute(
       "href",
       "data:text/plain;charset=utf-8," +
-        encodeURIComponent(JSON.stringify(settings)),
+      encodeURIComponent(JSON.stringify(settings)),
     );
     element.setAttribute("download", "az-kviz_záloha.json");
 
@@ -250,7 +250,7 @@ export default function Config({ setSettings }: Params) {
               ) : (
                 <>
                   <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
-                  &nbsp;&nbsp;Importovat konfiguraci
+                  &nbsp;&nbsp;Importovat otázky
                 </>
               )}
             </Button>
@@ -265,7 +265,7 @@ export default function Config({ setSettings }: Params) {
             >
               <>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-                &nbsp;&nbsp;Vytvořit konfiguraci
+                &nbsp;&nbsp;Vytvořit AZ-kvíz
               </>
             </Button>
           </div>
@@ -277,17 +277,16 @@ export default function Config({ setSettings }: Params) {
             }}
             className="container"
           >
-            <h2>Vytvoření konfigurace</h2>
+            <h2>Vytvoření hry</h2>
             <p>
-              Při prvním použití si musíte vytvořit konfiguraci. Stiskněte na
-              "Vytvořit konfiguraci". Vyberete typ hry. Máte na výber originální
-              nebo vlastní. Při originálním vyberete 28 hlavních otázek, při
-              vlastním 25 hlavních otázek a taky záložní otázky. Následně si
-              veberete cíl hry. Systém využívá cíl hry pro zjištění stavu a
+              Při prvním použití si musíte vytvořit "hru" (vytvoříte si otázky a odpovědi).
+              Stiskněte na "Vytvořit AZ-kvíz". Vyberete jakou šablonu chcete použít. Originální
+              (28 otázek) nebo vlastní (25 otázek). Také musíte vytvořit záložní
+              otázky. Zvolíte cíl hry který systém využívá pro zjištění stavu a
               upozorní při výhře jednoho z týmů.&nbsp;
               <strong>
-                Poté vysoce doporučuji si uložit konfiguraci, protože nyní když
-                stránku zavřete, konfigurace se vám smaže.&nbsp;
+                Poté vysoce doporučuji si uložit hru, protože nyní když
+                stránku zavřete, hra se vám smaže.&nbsp;
               </strong>
               Poté klikněte "Pokračovat" a vyberte názvy týmu. (názvy týmu
               nejsou nikdy uloženy do souboru)
@@ -297,8 +296,8 @@ export default function Config({ setSettings }: Params) {
               Vyberte políčku a ukáže se vám otázka. Poté co odpovíte na otázku
               stiskněte na tlačítko s nápisem "Řešení". Jakmile máte řešení
               zkontrolované stiskněte "Zpět". Nyní se vrátíte zpět na herní
-              pole. Políčko které jste vybrali zešedne. Nyní můžete vybrat jaká
-              skupina danou otázku uhodlo pomocí tlačítek vlevo nahoře a vpravo
+              pole. Políčko s otázkou, které jste vybrali zešedne. Nyní můžete vybrat jaká
+              skupina danou otázku uhodlo pomocí tlačítek vlevo a vpravo
               nahoře. Pokud žádná skupina otázku neuhodla, pole necháváte šedé.
             </p>
             <h2>Náhradní otázky</h2>
@@ -366,11 +365,11 @@ export default function Config({ setSettings }: Params) {
             ) : (
               <>
                 <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>
-                &nbsp;&nbsp;Uložit konfiguraci do souboru{" "}
+                &nbsp;&nbsp;Uložit hru do souboru{" "}
               </>
             )}
           </Button>
-          <h1>Vytvoření konfigurace</h1>
+          <h1>Vytvoření hry</h1>
           <p>Zde si vložíte otázky a odpovědi a nastavíte hru.</p>
           <hr />
           <div>
@@ -443,7 +442,7 @@ export default function Config({ setSettings }: Params) {
             <small>
               {mainOtazky.length}/{useOriginal ? 28 : 25}
             </small>
-             <div className="buttonsList">
+            <div className="buttonsList">
               <Button
                 onClick={createMainOtazka}
                 disabled={mainOtazky.length >= (useOriginal ? 28 : 25)}
@@ -506,7 +505,7 @@ export default function Config({ setSettings }: Params) {
               Tyto otázky jsou využity při odpovídání šedého políčka. Doporučuji
               minimálně 5 náhradních otázek.
             </p>
-             <div className="buttonsList">
+            <div className="buttonsList">
               <Button onClick={createSecondOtazka}>
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 &nbsp;&nbsp;Přidat otázku
@@ -583,7 +582,7 @@ export default function Config({ setSettings }: Params) {
             <div>
               <h2>Čas na odpověď</h2>
               <p>
-                Volitelný časový limit pro odpověď na otázku (v sekundách). 
+                Volitelný časový limit pro odpověď na otázku (v sekundách).
                 Pokud čas vyprší, druhý tým má neomezený čas na odpověď.
               </p>
               <div className="buttonsList">
@@ -602,7 +601,7 @@ export default function Config({ setSettings }: Params) {
             </div>
             <hr />
             <strong>
-              Před pokračováním doporučuji si konfiguraci uložit!!!
+              Před pokračováním doporučuji si hru uložit!!!
             </strong>
             <br />
             <Button variant="success" onClick={saveAndContinue}>
