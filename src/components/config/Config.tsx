@@ -8,6 +8,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faEdit,
+  faPlay,
   faPlus,
   faSave,
   faTrash,
@@ -35,6 +36,7 @@ export default function Config({ setSettings }: Params) {
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [showMainQuestionsList, setShowMainQuestionsList] = useState(false);
   const [showSecondQuestionsList, setShowSecondQuestionsList] = useState(false);
+  const [exampleLoading, setExampleLoading] = useState(false);
   const [isImported, setIsImported] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [target, setTarget] = useState(Target.None);
@@ -64,6 +66,33 @@ export default function Config({ setSettings }: Params) {
   }
   function importConfig() {
     fileInputRef.current?.click();
+  }
+  async function loadExampleConfig() {
+    setExampleLoading(true);
+    try {
+      const response = await fetch("/example-config.json");
+      const data = (await response.json()) as JSONSettings;
+      setMainOtazky(data.questions);
+      setSecondOtazky(data.backupQuestions);
+      if (data.target == 0) {
+        setTarget(Target.Connect3);
+      } else if (data.target == 1) {
+        setTarget(Target.Connect4);
+      } else {
+        setTarget(Target.None);
+      }
+      setUseOriginal(data.useOriginalType ?? true);
+      if (data.answerTime) {
+        setAnswerTime(data.answerTime);
+      }
+      setShowMainPage(false);
+      setShowCreateConfig(false);
+      setShowTymy(true);
+    } catch {
+      alert("Nepodařilo se načíst ukázkovou konfiguraci.");
+    } finally {
+      setExampleLoading(false);
+    }
   }
   function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
     setLoadingUpload(true);
@@ -234,6 +263,30 @@ export default function Config({ setSettings }: Params) {
         <>
           <h1>AZ-kvíz</h1>
           <div className="buttonsList">
+            <Button
+              variant="success"
+              onClick={loadExampleConfig}
+              disabled={exampleLoading}
+            >
+              {exampleLoading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    className="me-2"
+                  />
+                  Načítání...
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon icon={faPlay}></FontAwesomeIcon>
+                  &nbsp;&nbsp;Vyzkoušet ukázkovou hru
+                </>
+              )}
+            </Button>
             <Button onClick={importConfig}>
               {loadingUpload ? (
                 <>

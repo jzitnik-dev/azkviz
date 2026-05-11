@@ -1,0 +1,173 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Jaké hlavní město České republiky?",
+      "answer": "Praha"
+    },
+    {
+      "id": 2,
+      "question": "Kdo napsal román 'Osudy dobrého vojáka Švejka'?",
+      "answer": "Jaroslav Hašek"
+    },
+    {
+      "id": 3,
+      "question": "Ve kterém roce vznikla samostatná Česká republika?",
+      "answer": "1993"
+    },
+    {
+      "id": 4,
+      "question": "Jak se jmenuje nejvyšší hora České republiky?",
+      "answer": "Sněžka (1603 m n. m.)"
+    },
+    {
+      "id": 5,
+      "question": "Který český vynálezce vynalezl kontaktní čočky?",
+      "answer": "Otto Wichterle"
+    },
+    {
+      "id": 6,
+      "question": "Jak se jmenuje nejdelší řeka protékající Českou republikou?",
+      "answer": "Vltava (430 km)"
+    },
+    {
+      "id": 7,
+      "question": "Které české pivo se vaří v Plzni?",
+      "answer": "Pilsner Urquell (Plzeňský Prazdroj)"
+    },
+    {
+      "id": 8,
+      "question": "Kdo byl prvním československým prezidentem?",
+      "answer": "Tomáš Garrigue Masaryk"
+    },
+    {
+      "id": 9,
+      "question": "Jaký je chemický vzorec vody?",
+      "answer": "H₂O"
+    },
+    {
+      "id": 10,
+      "question": "Ve kterém roce se Česko stalo členem Evropské unie?",
+      "answer": "2004"
+    },
+    {
+      "id": 11,
+      "question": "Jak se jmenuje nejstarší dochovaný český hrad?",
+      "answer": "Přimda (z 12. století)"
+    },
+    {
+      "id": 12,
+      "question": "Kdo napsal divadelní hru 'RUR', kde poprvé zaznělo slovo robot?",
+      "answer": "Karel Čapek"
+    },
+    {
+      "id": 13,
+      "question": "Kolik je přibližně obyvatel České republiky?",
+      "answer": "10,8 milionu"
+    },
+    {
+      "id": 14,
+      "question": "Jak se jmenuje nejznámější český hrad?",
+      "answer": "Karlštejn"
+    },
+    {
+      "id": 15,
+      "question": "Který český hokejista je považován za nejlepšího všech dob?",
+      "answer": "Jaromír Jágr"
+    },
+    {
+      "id": 16,
+      "question": "Jaké je největší české město po Praze?",
+      "answer": "Brno"
+    },
+    {
+      "id": 17,
+      "question": "Kdo namaloval Slovanskou epopej?",
+      "answer": "Alfons Mucha"
+    },
+    {
+      "id": 18,
+      "question": "Jak se jmenuje český národní strom?",
+      "answer": "Lípa (srdčitá)"
+    },
+    {
+      "id": 19,
+      "question": "Která řeka protéká Prahou?",
+      "answer": "Vltava"
+    },
+    {
+      "id": 20,
+      "question": "Který český skladatel napsal 'Má vlast'?",
+      "answer": "Bedřich Smetana"
+    },
+    {
+      "id": 21,
+      "question": "Jaké je chemické označení kyslíku?",
+      "answer": "O"
+    },
+    {
+      "id": 22,
+      "question": "Ve kterém roce byla založena Univerzita Karlova?",
+      "answer": "1348"
+    },
+    {
+      "id": 23,
+      "question": "Která automobilka sídlí v Mladé Boleslavi?",
+      "answer": "Škoda Auto"
+    },
+    {
+      "id": 24,
+      "question": "Kdo je autorem výroku 'Pravda vítězí'?",
+      "answer": "Jan Hus"
+    },
+    {
+      "id": 25,
+      "question": "Který český herec namluvil Shreka v českém dabingu?",
+      "answer": "Ivan Trojan"
+    },
+    {
+      "id": 26,
+      "question": "Jak se jmenuje nejmenší stát světa podle rozlohy?",
+      "answer": "Vatikán"
+    },
+    {
+      "id": 27,
+      "question": "Kdo napsal 'Bratři Karamazovi'?",
+      "answer": "Fjodor Michajlovič Dostojevskij"
+    },
+    {
+      "id": 28,
+      "question": "Jaká je nejdelší řeka světa?",
+      "answer": "Amazonka (případně Nil – záleží na měření)"
+    }
+  ],
+  "backupQuestions": [
+    {
+      "id": 101,
+      "question": "Kdo vynalezl žárovku?",
+      "answer": "Thomas Alva Edison"
+    },
+    {
+      "id": 102,
+      "question": "Jak se jmenuje český kreslený krtek?",
+      "answer": "Krteček (od Zdeňka Milera)"
+    },
+    {
+      "id": 103,
+      "question": "Který den se slaví Den vzniku samostatného československého státu?",
+      "answer": "28. říjen"
+    },
+    {
+      "id": 104,
+      "question": "Jaká je měna v Japonsku?",
+      "answer": "Japonský jen"
+    },
+    {
+      "id": 105,
+      "question": "Které pohoří odděluje Evropu od Asie?",
+      "answer": "Uralské pohoří"
+    }
+  ],
+  "target": 0,
+  "useOriginalType": true
+}
