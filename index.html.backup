@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Vytvořte si vlastní AZ-Kvíz. Jednoduchá stránka pro vytvoření vlastního AZ-Kvízu v češtině.">
+    <script defer src="https://analytics.client.jzitnik.dev/script.js" data-website-id="31d7f7d7-725b-4b81-8e85-2a5423c4ed9e"></script>
+    <script defer src="https://analytics.client.jzitnik.dev/recorder.js" data-website-id="31d7f7d7-725b-4b81-8e85-2a5423c4ed9e"></script>
     <title>AZ-Kvíz</title>
   </head>
   <body>
